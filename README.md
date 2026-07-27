@@ -1,13 +1,8 @@
 # Representation-of-a-Real-World-Problem-as-a-Markov-Decision-Process
 
-
 ## Aim
 
-Write your aim here.
-
-Example:
-
-> To identify a real-world sequential decision-making problem and represent it formally as a Markov Decision Process by defining its states, actions, rewards, transitions, and Python representation.
+To represent a Smart Plant Watering System as a Markov Decision Process (MDP) by defining its states, actions, rewards, transition probabilities, and Python representation.
 
 ---
 
@@ -15,10 +10,7 @@ Example:
 
 ### Problem Description
 
-Write your answer here.
-
-Describe the real-world application that you selected.
-
+A Smart Plant Watering System monitors the moisture level of the soil and decides whether to water the plant or wait. The objective is to maintain healthy soil moisture while avoiding overwatering and conserving water. The system makes decisions based on the current state of the soil.
 
 ---
 
@@ -44,142 +36,153 @@ Where:
 
 ## State Space
 
-Write your answer here.
-
-The state space should list all possible situations in which the agent can exist.
-
-Example format:
-
 ```text
 S = {
-    State 1,
-    State 2,
-    State 3,
-    ...
+    Dry Soil,
+    Moist Soil,
+    Wet Soil
 }
 ```
-
-
 
 ---
 
 ## Sample State
 
-Write your answer here.
-
-A sample state is one specific example from the state space.
-
-
+```text
+Dry Soil
+```
 
 ---
 
 ## Action Space
 
-Write your answer here.
-
-The action space should list all possible actions available to the agent.
-
-Example format:
-
 ```text
 A = {
-    Action 1,
-    Action 2,
-    Action 3,
-    ...
+    Water Plant,
+    Wait
 }
 ```
-
 
 ---
 
 ## Sample Action
 
-Write your answer here.
-
-A sample action is one action selected from the action space.
-
-
+```text
+Water Plant
+```
 
 ---
 
 ## Transition Probability
 
-Write your answer here.
-
-The transition probability explains how the environment moves from one state to another after an action is taken.
-
-General form:
+The transition probability is represented as:
 
 $$
 P(s' \mid s,a)
 $$
 
-This means:
+Example transitions:
 
-> Probability of reaching next state $s'$ after taking action $a$ in current state $s$.
-
+- Dry Soil + Water Plant → Moist Soil (0.9)
+- Dry Soil + Wait → Dry Soil (1.0)
+- Moist Soil + Water Plant → Wet Soil (0.8)
+- Moist Soil + Wait → Dry Soil (0.3)
+- Wet Soil + Wait → Moist Soil (0.7)
 
 ---
 
 ## Reward Function
 
-Write your answer here.
-
-The reward function defines the feedback received by the agent after taking an action.
-
-General form:
+The reward function is represented as:
 
 $$
 R(s,a,s')
 $$
 
+Rewards:
 
+- Watering dry soil → **+5**
+- Keeping soil moist → **+10**
+- Overwatering the soil → **−5**
+- Ignoring dry soil → **−3**
 
 ---
 
 ## Graphical Representation
 
-Write your answer here.
+<img width="1018" height="447" alt="image" src="https://github.com/user-attachments/assets/64df19ca-766c-4413-9939-479a10e62a39" />
 
-Draw the MDP graph.
-
-The graph should include:
-
-1. States as nodes.
-2. Actions as arrows.
-3. Rewards on transitions.
-4. Transition probabilities if applicable.
-
-
----
 
 ## Python Representation
 
-Write your code here.
-
-Use Python dictionaries to represent the MDP.
-
-
 ```python
 # MDP Representation using Python
-# print("Name:       ")
-# print("Register Number:     ")
 
+states = ["Dry Soil", "Moist Soil", "Wet Soil"]
+
+actions = {
+    "Dry Soil": ["Water Plant", "Wait"],
+    "Moist Soil": ["Water Plant", "Wait"],
+    "Wet Soil": ["Wait"]
+}
+
+transitions = {
+    ("Dry Soil", "Water Plant"): ("Moist Soil", 0.9),
+    ("Dry Soil", "Wait"): ("Dry Soil", 1.0),
+    ("Moist Soil", "Water Plant"): ("Wet Soil", 0.8),
+    ("Moist Soil", "Wait"): ("Dry Soil", 0.3),
+    ("Wet Soil", "Wait"): ("Moist Soil", 0.7)
+}
+
+rewards = {
+    ("Dry Soil", "Water Plant"): 5,
+    ("Moist Soil", "Wait"): 10,
+    ("Moist Soil", "Water Plant"): -5,
+    ("Dry Soil", "Wait"): -3
+}
+
+print("States:", states)
+print("Actions:", actions)
+print("Transitions:", transitions)
+print("Rewards:", rewards)
 ```
+
 ---
+
 ## Output
 
-Write your Python output here.
+```text
+States: ['Dry Soil', 'Moist Soil', 'Wet Soil']
 
+Actions:
+{
+ 'Dry Soil': ['Water Plant', 'Wait'],
+ 'Moist Soil': ['Water Plant', 'Wait'],
+ 'Wet Soil': ['Wait']
+}
+
+Transitions:
+{
+ ('Dry Soil', 'Water Plant'): ('Moist Soil', 0.9),
+ ('Dry Soil', 'Wait'): ('Dry Soil', 1.0),
+ ('Moist Soil', 'Water Plant'): ('Wet Soil', 0.8),
+ ('Moist Soil', 'Wait'): ('Dry Soil', 0.3),
+ ('Wet Soil', 'Wait'): ('Moist Soil', 0.7)
+}
+
+Rewards:
+{
+ ('Dry Soil', 'Water Plant'): 5,
+ ('Moist Soil', 'Wait'): 10,
+ ('Moist Soil', 'Water Plant'): -5,
+ ('Dry Soil', 'Wait'): -3
+}
+```
 
 ---
 
 ## Result
 
-Write your result here.
-
-
+The Smart Plant Watering System was successfully represented as a Markov Decision Process by defining its states, actions, transition probabilities, reward function, graphical representation, and Python representation.
 
 ---
-
